@@ -1,12 +1,10 @@
-#include <stdio.h>
-#include <string.h>
-#include <sys/socket.h>
+#include "declaration.h"
 
-int socket_server;
-
-socket_server = socket(AF_INET ,SOCK_STREAM ,0);
-    if(socket_server == -1){
-    /* traitement de l ’ erreur */
-        perror("socket_server");
+int creationSocket(int domaine, int type, int protocol){
+    int socket_serveur = socket(DOMAINEIP, AF_INET, PROTOCOL);
+    if (socket_serveur == -1) {
+        printf("Erreur lors de la création du serveur. \n")
+        return -1;
     }
-/* Utilisation de la socket server */
+    return socket_serveur;
+}
