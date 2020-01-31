@@ -8,7 +8,7 @@ int socket_serveur;
 
 int main(void){
     socket_serveur = creationSocket(DOMAINEIP,TYPE, PROTOCOL);
-    if(socket_serveur != -1){
+    if(socket_serveur != -1 && socket_serveur != -2){
         printf("Le serveur a bien été créé \n");
     }
 }
