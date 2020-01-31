@@ -2,7 +2,13 @@
 
 //Déclaration des fonctions internes
 int attachementSocket(int socket_serveur);
+int setListenning(int socket_serveur);
 int launchListenning(int socket_serveur);
+
+//Fonction juste pour faire le lien avec le sujet
+int creer_serveur(){
+    return creationSocket();
+}
 
 //Fonction qui génère une socket
 int creationSocket(){
@@ -34,13 +40,23 @@ int attachementSocket(int socket_serveur){
         perror("Erreur lors de l'attachement de la Socket. \n");
         return -3;
     }
+    return setListenning(socket_serveur);
+}
+//Paramètrages des écoutes de connexion
+int setListenning(int socket_serveur){
+    if(listen(socket_serveur, LISTEATTENTE) == -1){
+        perror("Erreur lors du paramétrage de l'écoute de connexion. \n");
+        return -4;
+    }
     return launchListenning(socket_serveur);
 }
 //Lancement des écoutes de connexion
 int launchListenning(int socket_serveur){
-    if(listen(socket_serveur, FINALPROTOCOL) == -1){
-        perror("Erreur du lancement de l'écoute de connexion. \n");
-        return -4;
+
+    if(accept(socket_serveur, NULL, NULL) == -1){
+        perror("Erreur du lancement des écoutes. \n");
+        return -5;
     }
+    welcomeMessage(socket_serveur);
     return socket_serveur;
 }
