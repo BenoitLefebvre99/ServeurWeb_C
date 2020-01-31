@@ -1,6 +1,7 @@
 #include "declaration.h"
 
 int attachementSocket(int socket_serveur);
+int launchListenning(int socket_serveur);
 
 int creationSocket(){
     int socket_serveur = socket(DOMAINEIP, TYPE, PROTOCOL);
@@ -27,6 +28,14 @@ int attachementSocket(int socket_serveur){
     if(bind(socket_serveur, (struct sockaddr *)&saddr, sizeof(saddr)) == -1){
         perror("Erreur lors de l'attachement de la Socket. \n");
         return -3;
+    }
+    return launchListenning(socket_serveur);
+}
+
+int launchListenning(int socket_serveur){
+    if(listen(socket_serveur, FINALPROTOCOL) == -1){
+        perror("Erreur du lancement de l'écoute de connexion. \n");
+        return -4;
     }
     return socket_serveur;
 }
