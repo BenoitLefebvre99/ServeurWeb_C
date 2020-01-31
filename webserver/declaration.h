@@ -1,5 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
 
-int creationSocket(int domaine, int type, int protocol);
+#define DOMAINEIP AF_INET
+#define TYPE SOCK_STREAM
+#define PROTOCOL 0
+#define FINALPROTOCOL 8080
+
+struct sockaddr_in saddr;
+
+int creationSocket();

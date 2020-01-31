@@ -1,14 +1,32 @@
 #include "declaration.h"
 
-int creationSocket(int domaine, int type, int protocol){
-    int socket_serveur = socket(domaine, type, protocol);
+int attachementSocket(int socket_serveur);
+
+int creationSocket(){
+    int socket_serveur = socket(DOMAINEIP, TYPE, PROTOCOL);
+
     if (socket_serveur == -1) {
         perror("Erreur lors de la création du serveur. \n");
         return -1;
     }
+
+    return attachementSocket(socket_serveur);
+}
+
+int attachementSocket(int socket_serveur){
+    int optVal = 1;
+    if(setsockopt(socket_serveur, SOL_SOCKET, SO_REUSEADDR, &optVal, sizeof(int)) == -1){
+        perror("Erreur lors de l'identification par setsockopt.\n");
+        return -2;
+    }
+
+    saddr.sin_family =  DOMAINEIP;
+    saddr.sin_port = htons(FINALPROTOCOL);
+    saddr.sin_addr.s_addr = INADDR_ANY;
+
     if(bind(socket_serveur, (struct sockaddr *)&saddr, sizeof(saddr)) == -1){
         perror("Erreur lors de l'attachement de la Socket. \n");
-        return -2;
+        return -3;
     }
     return socket_serveur;
 }
