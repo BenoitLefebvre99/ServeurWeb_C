@@ -3,6 +3,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netinet/ip.h>
 #include <unistd.h>
 
 #include "socket.h"
@@ -14,8 +15,8 @@
 #define FINALPROTOCOL 8080
 #define LISTEATTENTE 10
 
-struct sockaddr_in saddr;
-
 //déclaration des fonctions externes 'public'
 int creationSocket();
 void welcomeMessage(int socket_serveur);
+
+int launchListenning(int socket_serveur);

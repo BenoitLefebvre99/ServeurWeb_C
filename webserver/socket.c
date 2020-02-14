@@ -3,7 +3,6 @@
 //Déclaration des fonctions internes
 int attachementSocket(int socket_serveur);
 int setListenning(int socket_serveur);
-int launchListenning(int socket_serveur);
 
 //Fonction juste pour faire le lien avec le sujet
 int creer_serveur(){
@@ -31,6 +30,8 @@ int attachementSocket(int socket_serveur){
         return -2;
     }
 
+    struct sockaddr_in saddr;
+
     saddr.sin_family =  DOMAINEIP;
     saddr.sin_port = htons(FINALPROTOCOL);
     saddr.sin_addr.s_addr = INADDR_ANY;
@@ -53,10 +54,13 @@ int setListenning(int socket_serveur){
 //Lancement des écoutes de connexion
 int launchListenning(int socket_serveur){
 
-    if(accept(socket_serveur, NULL, NULL) == -1){
+    int socket_client = accept(socket_serveur, NULL, NULL);
+    if( socket_client == -1){
         perror("Erreur du lancement des écoutes. \n");
         return -5;
     }
-    welcomeMessage(socket_serveur);
+
+    welcomeMessage(socket_client);
+
     return socket_serveur;
 }

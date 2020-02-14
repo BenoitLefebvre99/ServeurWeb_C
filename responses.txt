@@ -1,0 +1,6 @@
+3.2.1 :
+
+1. Le processus du client s'éteint dès l'arrêt du serveur.
+2. Le client se ferme instantanément et le message de bienvenue ne s'affiche pas sur le terminal client.
+3. Connexion refusée car nous n'écoutons que les addresses iPv4.
+4. Le deux restent en attente après avoir reçu le message de bienvenue.
