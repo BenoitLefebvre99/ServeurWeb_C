@@ -5,6 +5,7 @@
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include "socket.h"
 
@@ -18,5 +19,5 @@
 //déclaration des fonctions externes 'public'
 int creationSocket();
 void welcomeMessage(int socket_serveur);
-
+void initialiser_signaux();
 int launchListenning(int socket_serveur);
