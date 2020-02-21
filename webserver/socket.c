@@ -56,12 +56,12 @@ int launchListenning(int socket_serveur){
 
     int socket_client = accept(socket_serveur, NULL, NULL);
 
-    launchChild(socket_client);
-
     if( socket_client == -1){
         perror("Erreur du lancement des écoutes. \n");
         return -5;
     }
+
+    launchChild(socket_client);
 
     return socket_serveur;
 }
