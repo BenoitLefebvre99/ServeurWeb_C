@@ -1,4 +1,5 @@
 socket.o: socket.c declaration.h socket.h
+children.o: children.c declaration.h socket.h
 welcome_message.o: welcome_message.c declaration.h socket.h
 http_parse.o: http_parse.c http_parse.h
 main.o: main.c declaration.h socket.h

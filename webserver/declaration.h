@@ -21,3 +21,4 @@ int creationSocket();
 void welcomeMessage(int socket_serveur);
 void initialiser_signaux();
 int launchListenning(int socket_serveur);
+int launchChild(int socket_client);
