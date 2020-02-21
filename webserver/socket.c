@@ -56,22 +56,12 @@ int launchListenning(int socket_serveur){
 
     int socket_client = accept(socket_serveur, NULL, NULL);
 
-    int pid = fork();
-    if (pid ==0){
-        
-    }else{
-        if(close(socket_client) == -1){
-            perror("Erreur de fermeture de la socket client");
-            return -6;
-        };
-    }
+    launchChild(socket_client);
+
     if( socket_client == -1){
         perror("Erreur du lancement des écoutes. \n");
         return -5;
     }
-
-
-    welcomeMessage(socket_client);
 
     return socket_serveur;
 }
