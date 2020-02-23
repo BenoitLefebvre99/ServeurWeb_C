@@ -4,3 +4,12 @@
 2. Le client se ferme instantanément et le message de bienvenue ne s'affiche pas sur le terminal client.
 3. Connexion refusée car nous n'écoutons que les addresses iPv4.
 4. Le deux restent en attente après avoir reçu le message de bienvenue.
+
+5.2.1 :
+
+1. done.
+2. done
+3. GET / HTTP/1.1
+4. Méthode : GET
+   Adresse : /
+   Version HTTP : HTTP/1.1
