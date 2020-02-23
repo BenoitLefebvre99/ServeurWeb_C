@@ -14,19 +14,16 @@ int launchChild(int socket_client){
     welcomeMessage(socket_client);
 
     char reception[1024];
-    int retour;
+    //char c;
+    FILE * recept = fdopen(socket_client, "a+");
 
-    do{
+    do {
         memset(reception, 0, sizeof(reception));
-        retour = read(socket_client, reception, sizeof(reception));
-        if(retour == -1){
-            perror("Erreur lors de la lecture");
-            return -7;
+        while(fgets(reception, 1024, recept) != NULL){
+            fprintf(recept, "\n<MonServeur>");
+            fputs(reception, recept);
         }
-        else if(retour == 0 ){
-            break;
-        }
-        printf("%s", reception);
+        fflush(recept);
     }while(1);
 
     return 0;
