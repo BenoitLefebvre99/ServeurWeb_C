@@ -21,7 +21,7 @@
 
 //déclaration des fonctions externes 'public'
 int creationSocket();
-void welcomeMessage(int socket_serveur);
+char * welcomeMessage();
 void initialiser_signaux();
 int launchListenning(int socket_serveur);
 int launchChild(int socket_client);
