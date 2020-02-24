@@ -4,8 +4,9 @@ int launchChild(int socket_client){
     int pid = fork();
 
     const char * GOOD_REQUEST = "GET / HTTP/1.1\r\n";
-    const char * BAD_REQUEST_ANSWER = "HTTP/1.1 400 Bad Request\r\nConnection: close\r\nContent-Length: 17\r\n\r\n400 Bad request\r\n";
-    const char * GOOD_REQUEST_ANSWER = welcomeMessage();
+    const char * NOT_FOUND_REQUEST = "GET /inexistant HTTP/1.1\r\n";
+
+    char * ANSWER;
 
     if(pid){
         if(close(socket_client) == -1){
@@ -24,18 +25,19 @@ int launchChild(int socket_client){
     do {
         memset(reception, 0, sizeof(reception));
         while(fgets(reception, 1024, recept) != NULL){
-            //fprintf(recept, "\n<MonServeur>");
-            //fputs(reception, recept);
             printf("%s", reception);
-            if(strcmp(GOOD_REQUEST, reception)){
-                fputs(BAD_REQUEST_ANSWER, recept);
-                rupture = 2;
-                break;
+            if(!strcmp(GOOD_REQUEST, reception)){
+                ANSWER = welcomeMessage();
             }
-            fputs(GOOD_REQUEST_ANSWER, recept);
-            //printf("%ld", strlen(GOOD_REQUEST_ANSWER));
+            else if(!strcmp(NOT_FOUND_REQUEST,reception)){
+                ANSWER = error404Message();
+            }
+            else {
+                ANSWER = badRequestMessage();
+
+            }
+            fputs(ANSWER, recept);
             rupture = 1 ;
-            break;
         }
         fflush(recept);
     }while(!rupture);

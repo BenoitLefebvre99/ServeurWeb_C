@@ -1,23 +1,5 @@
 #include "declaration.h"
 
-//Fonction qui affiche le message d'accueil au client
-char * welcomeMessage(){
-    char *message = "HTTP/1.1 200 OK\r\n"
-        "Content-Length: 247\r\n"
-        "\r\n"
-        "*****************\r\n"
-        "Bien le bonjour,\r\n"
-        "Nous te souhaitons la bienvenue.\r\n"
-        "Nous espérons que tu vas kiffer.\r\n"
-        "Y'a pleins de fonctionnalités.\r\n"
-        "Mais la flemme de te faire la liste.\r\n"
-        "William et Benoit.\r\n"
-        "La bise.\r\n"
-        "Tu peux nous remercier.\r\n"
-        "*************\r\n";
-    //write(socket_client, message, strlen(message));
-    return message;
-}
 
 // Affichage du signal reçu
 void traitement_signal(int sig){
