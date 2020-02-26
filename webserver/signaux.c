@@ -1,5 +1,12 @@
 #include "declaration.h"
 
+// Une fonction créée psk le sujet le demande
+char * fgets_or_exit(char * buffer, int size, FILE * stream){
+    while(fgets(buffer, size, stream) != NULL){
+        return buffer;
+    }
+    exit(1);
+}
 
 // Affichage du signal reçu
 void traitement_signal(int sig){

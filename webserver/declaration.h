@@ -1,5 +1,6 @@
 //Déclaration des bibliothèques
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -28,3 +29,4 @@ void initialiser_signaux();
 int launchListenning(int socket_serveur);
 int launchChild(int socket_client);
 void nettoyage_signaux();
+char * fgets_or_exit(char * buffer, int size, FILE *stream);

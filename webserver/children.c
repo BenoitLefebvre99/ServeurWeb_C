@@ -16,31 +16,23 @@ int launchChild(int socket_client){
         return 0;
     }
 
-    //printf("%lu", strlen(GOOD_REQUEST_ANSWER));
     char reception[1024];
-    int rupture = 0;
-    //char c;
     FILE * recept = fdopen(socket_client, "a+");
+    memset(reception, 0, sizeof(reception));
+    fgets_or_exit(reception, 1024, recept);
+    printf("%s", reception);
+    if(!strcmp(GOOD_REQUEST, reception)){
+        ANSWER = welcomeMessage();
+    }
+    else if(!strcmp(NOT_FOUND_REQUEST,reception)){
+        ANSWER = error404Message();
+    }
+    else {
+        ANSWER = badRequestMessage();
 
-    do {
-        memset(reception, 0, sizeof(reception));
-        while(fgets(reception, 1024, recept) != NULL){
-            printf("%s", reception);
-            if(!strcmp(GOOD_REQUEST, reception)){
-                ANSWER = welcomeMessage();
-            }
-            else if(!strcmp(NOT_FOUND_REQUEST,reception)){
-                ANSWER = error404Message();
-            }
-            else {
-                ANSWER = badRequestMessage();
-
-            }
-            fputs(ANSWER, recept);
-            rupture = 1 ;
-        }
-        fflush(recept);
-    }while(!rupture);
+    }
+    fputs(ANSWER, recept);
+    fflush(recept);
 
     return 0;
 }
