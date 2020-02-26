@@ -1,5 +1,16 @@
 #include "declaration.h"
 
+// Une fonction qui lit les lignes envoyées par le client
+void skip_headers(FILE * client){
+    char reception[1024];
+    const char * one = "\r\n";
+    const char * two = "\n";
+    do {
+        memset(reception, 0, sizeof(reception));
+        fgets_or_exit(reception, 1024, client);
+    }while(!strcmp(one,reception) && !strcmp(two, reception));
+}
+
 // Une fonction créée psk le sujet le demande
 char * fgets_or_exit(char * buffer, int size, FILE * stream){
     while(fgets(buffer, size, stream) != NULL){

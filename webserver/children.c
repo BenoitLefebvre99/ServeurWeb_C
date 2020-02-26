@@ -19,6 +19,9 @@ int launchChild(int socket_client){
     char reception[1024];
     FILE * recept = fdopen(socket_client, "a+");
     memset(reception, 0, sizeof(reception));
+
+    skip_headers(recept);
+
     fgets_or_exit(reception, 1024, recept);
     printf("%s", reception);
     if(!strcmp(GOOD_REQUEST, reception)){

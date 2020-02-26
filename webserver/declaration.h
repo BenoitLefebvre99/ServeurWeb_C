@@ -30,3 +30,4 @@ int launchListenning(int socket_serveur);
 int launchChild(int socket_client);
 void nettoyage_signaux();
 char * fgets_or_exit(char * buffer, int size, FILE *stream);
+void skip_headers(FILE *client);
