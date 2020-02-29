@@ -3,8 +3,8 @@
 int launchChild(int socket_client){
     int pid = fork();
 
-    const char * GOOD_REQUEST = "GET / HTTP/1.1\r\n";
-    const char * NOT_FOUND_REQUEST = "GET /inexistant HTTP/1.1\r\n";
+    //const char * GOOD_REQUEST = "GET / HTTP/1.1\r\n";
+    //const char * NOT_FOUND_REQUEST = "GET /inexistant HTTP/1.1\r\n";
 
     char * ANSWER;
 
@@ -20,20 +20,28 @@ int launchChild(int socket_client){
     FILE * recept = fdopen(socket_client, "a+");
     memset(reception, 0, sizeof(reception));
 
-    skip_headers(recept);
+    //skip_headers(recept);
 
     fgets_or_exit(reception, 1024, recept);
     printf("%s", reception);
-    if(!strcmp(GOOD_REQUEST, reception)){
+
+
+    http_request *requete = NULL;
+
+    requete->method = HTTP_GET;
+    requete->http_major = 1;
+    requete->http_minor = 0;
+    memset(requete->target, 0, sizeof(requete->target));
+    requete->target[0]='/';
+
+    parse_http_request(reception, requete);
+    if (strcmp(requete->target, "/")){
         ANSWER = welcomeMessage();
     }
-    else if(!strcmp(NOT_FOUND_REQUEST,reception)){
+    else {
         ANSWER = error404Message();
     }
-    else {
-        ANSWER = badRequestMessage();
 
-    }
     fputs(ANSWER, recept);
     fflush(recept);
 

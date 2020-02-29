@@ -1,5 +1,12 @@
 #include "declaration.h"
 
+void send_response(FILE * client, int code, const char * reason_phrase, const char * message_body){
+
+}
+
+void send_status(FILE * client, int code, const char *reason_phrase){
+}
+
 // Fonction qui renvoie le message de bienvenue
 char * welcomeMessage(){
     char *message = "HTTP/1.1 200 OK\r\n"

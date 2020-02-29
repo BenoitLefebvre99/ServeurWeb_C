@@ -11,6 +11,7 @@
 #include <sys/types.h>
 
 #include "socket.h"
+#include "http_parse.h"
 
 //Déclaration des constantes
 #define DOMAINEIP AF_INET
@@ -31,3 +32,5 @@ int launchChild(int socket_client);
 void nettoyage_signaux();
 char * fgets_or_exit(char * buffer, int size, FILE *stream);
 void skip_headers(FILE *client);
+void send_status(FILE * client, int code, const char * reason_phrase);
+void send_response(FILE * client, int code, const char * reason_phrase, const char * message_body);
