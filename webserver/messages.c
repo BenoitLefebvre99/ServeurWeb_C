@@ -1,18 +1,19 @@
 #include "declaration.h"
 
 void send_response(FILE * client, int code, const char * reason_phrase, const char * message_body){
-
+    send_status(client, code, reason_phrase);
+    fprintf(client, "Content-Length: %lu\n", strlen(message_body));
+    fprintf(client, "\r\n");
+    fputs(message_body, client);
 }
 
 void send_status(FILE * client, int code, const char *reason_phrase){
+    fprintf(client, "HTTP/1.1 %d %s \n", code, reason_phrase);
 }
 
 // Fonction qui renvoie le message de bienvenue
 char * welcomeMessage(){
-    char *message = "HTTP/1.1 200 OK\r\n"
-        "Content-Length: 247\r\n"
-        "\r\n"
-        "*****************\r\n"
+    char *message = "*****************\r\n"
         "Bien le bonjour,\r\n"
         "Nous te souhaitons la bienvenue.\r\n"
         "Nous espérons que tu vas kiffer.\r\n"
@@ -22,26 +23,17 @@ char * welcomeMessage(){
         "La bise.\r\n"
         "Tu peux nous remercier.\r\n"
         "*************\r\n";
-    //write(socket_client, message, strlen(message));
     return message;
 }
 
 // Fonction qui renvoie le message d'erreur 404
 char * error404Message(){
-    char *message = "HTTP/1.1 404 Not Found\r\n"
-        "Connection: close\r\n"
-        "Content-Length: 54\r\n"
-        "\r\n"
-        "Erreur 404 : Ressource non disponible ou inexistante\r\n";
+    char *message = "Erreur 404 : Ressource non disponible ou inexistante\r\n";
     return message;
 }
 
 // Fonction qui renvoie le message d'erreur 400
 char * badRequestMessage(){
-    char * message = "HTTP/1.1 400 Bad Request\r\n"
-        "Connection: close\r\n"
-        "Content-Length: 17\r\n"
-        "\r\n"
-        "400 Bad request\r\n";
+    char * message = "400 Bad request\r\n";
     return message;
 }

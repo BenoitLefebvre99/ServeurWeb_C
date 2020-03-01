@@ -1,13 +1,8 @@
 #include "declaration.h"
 
 int launchChild(int socket_client){
+    // Création d'un processus fils
     int pid = fork();
-
-    //const char * GOOD_REQUEST = "GET / HTTP/1.1\r\n";
-    //const char * NOT_FOUND_REQUEST = "GET /inexistant HTTP/1.1\r\n";
-
-    char * ANSWER;
-
     if(pid){
         if(close(socket_client) == -1){
             perror("Erreur lors de la création du processus fils");
@@ -17,32 +12,29 @@ int launchChild(int socket_client){
     }
 
     char reception[1024];
-    FILE * recept = fdopen(socket_client, "a+");
     memset(reception, 0, sizeof(reception));
+
+    FILE * recept = fdopen(socket_client, "a+");
 
     //skip_headers(recept);
 
     fgets_or_exit(reception, 1024, recept);
     printf("%s", reception);
 
+    http_request requete;
 
-    http_request *requete = NULL;
-
-    requete->method = HTTP_GET;
-    requete->http_major = 1;
-    requete->http_minor = 0;
-    memset(requete->target, 0, sizeof(requete->target));
-    requete->target[0]='/';
-
-    parse_http_request(reception, requete);
-    if (strcmp(requete->target, "/")){
-        ANSWER = welcomeMessage();
+    if(parse_http_request(reception, &requete) == 0) {
+        send_response(recept, 400, "Bad Request", badRequestMessage());
+    }
+    else if(strcmp(requete.target, "/") == 0) {
+        send_response(recept, 200, "OK", welcomeMessage());
+    }
+    else if(requete.method == HTTP_UNSUPPORTED) {
+        send_response(recept, 405, "Method Not Allowed", "Method Not Allowed\r\n");
     }
     else {
-        ANSWER = error404Message();
+        send_response(recept, 404, "Not Found", error404Message());
     }
-
-    fputs(ANSWER, recept);
     fflush(recept);
 
     return 0;
