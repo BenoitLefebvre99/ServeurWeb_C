@@ -23,7 +23,10 @@ int launchChild(int socket_client){
 
     http_request requete;
     parse_http_request(reception, &requete);
-    printf("%s\n", rewrite_target(requete.target));
+    FILE * end = check_and_open(rewrite_target(requete.target), "../www");
+    if(end != NULL) {
+        printf("YES WE DID IT \n");
+    }
     if(parse_http_request(reception, &requete) == 0) {
         send_response(recept, 400, "Bad Request", badRequestMessage());
     }

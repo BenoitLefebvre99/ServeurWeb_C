@@ -19,7 +19,6 @@
 #define PROTOCOL 0
 #define FINALPROTOCOL 8080
 #define LISTEATTENTE 10
-#define NOM_SERVEUR "MonServeur"
 
 //déclaration des fonctions externes 'public'
 int creationSocket();

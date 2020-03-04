@@ -1,8 +1,5 @@
 #include "declaration.h"
 
-/*FILE * check_and_open(const char * target, const char * document_root){
-    return NULL;
-}*/
 char * rewrite_target(char * target) {
     int idx = charAt(target, '?');
     char * save = target;
@@ -23,6 +20,18 @@ int charAt(char * str, char c) {
         ++str;
     } while(*str != c && *str != '\0');
     return res;
+}
+FILE * check_and_open(const char * target, const char * document_root){
+    FILE * file = NULL;
+    char link[1024];
+    memset(link, 0, sizeof(link));
+    strcat(link, document_root);
+    strcat(link, target);
+    file = fopen(link, "r");
+    if (file == NULL) {
+        exit(1);
+    }
+    return file;
 }
 /*int get_file_size(int fd) {
     return fd;
