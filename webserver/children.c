@@ -22,22 +22,21 @@ int launchChild(int socket_client){
     printf("%s\n", reception);
 
     http_request requete;
-    parse_http_request(reception, &requete);
-    FILE * end = check_and_open(rewrite_target(requete.target), "../www");
-    if(end != NULL) {
-        printf("YES WE DID IT \n");
-    }
+
     if(parse_http_request(reception, &requete) == 0) {
         send_response(recept, 400, "Bad Request", badRequestMessage());
-    }
-    else if(strcmp(requete.target, "/") == 0) {
-        send_response(recept, 200, "OK", welcomeMessage());
     }
     else if(requete.method == HTTP_UNSUPPORTED) {
         send_response(recept, 405, "Method Not Allowed", "Method Not Allowed\r\n");
     }
     else {
-        send_response(recept, 404, "Not Found", error404Message());
+        FILE * end = check_and_open(rewrite_target(requete.target), "../www");
+        if(end == NULL) {
+            send_response(recept, 404, "Not Found", error404Message());
+        } else {
+            printf("Taille = %d\n", get_file_size(fileno(end)));
+            send_response(recept, 200, "OK", welcomeMessage());
+        }
     }
     fflush(recept);
 

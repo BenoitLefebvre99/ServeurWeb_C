@@ -28,14 +28,20 @@ FILE * check_and_open(const char * target, const char * document_root){
     strcat(link, document_root);
     strcat(link, target);
     file = fopen(link, "r");
-    if (file == NULL) {
-        exit(1);
-    }
     return file;
 }
-/*int get_file_size(int fd) {
-    return fd;
+int get_file_size(int fd) {
+    int res = 0;
+    char c;
+    FILE * file = fdopen(fd, "r");
+    if (file == NULL) {
+        return -1;
+    }
+    while((c=fgetc(file))!=EOF) {
+        res++;
+    }
+    return res;
 }
-int copy(FILE * in, FILE * out ){
+/*int copy(FILE * in, FILE * out ){
     return 0;
 */
