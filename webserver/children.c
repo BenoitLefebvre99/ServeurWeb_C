@@ -19,10 +19,11 @@ int launchChild(int socket_client){
     //skip_headers(recept);
 
     fgets_or_exit(reception, 1024, recept);
-    printf("%s", reception);
+    printf("%s\n", reception);
 
     http_request requete;
-
+    parse_http_request(reception, &requete);
+    printf("%s\n", rewrite_target(requete.target));
     if(parse_http_request(reception, &requete) == 0) {
         send_response(recept, 400, "Bad Request", badRequestMessage());
     }

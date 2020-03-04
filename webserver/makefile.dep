@@ -1,6 +1,7 @@
-socket.o: socket.c declaration.h socket.h http_parse.h
 children.o: children.c declaration.h socket.h http_parse.h
+fichiers.o: fichiers.c declaration.h socket.h http_parse.h
 http_parse.o: http_parse.c http_parse.h
 main.o: main.c declaration.h socket.h http_parse.h
 signaux.o: signaux.c declaration.h socket.h http_parse.h
 messages.o: messages.c declaration.h socket.h http_parse.h
+socket.o: socket.c declaration.h socket.h http_parse.h
