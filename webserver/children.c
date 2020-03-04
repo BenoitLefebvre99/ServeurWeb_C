@@ -35,7 +35,8 @@ int launchChild(int socket_client){
             send_response(recept, 404, "Not Found", error404Message());
         } else {
             printf("Taille = %d\n", get_file_size(fileno(end)));
-            send_response(recept, 200, "OK", welcomeMessage());
+            //send_response(recept, 200, "OK", welcomeMessage());
+            copy(end, recept);
         }
     }
     fflush(recept);

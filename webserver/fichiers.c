@@ -42,6 +42,10 @@ int get_file_size(int fd) {
     }
     return res;
 }
-/*int copy(FILE * in, FILE * out ){
+int copy(FILE * in, FILE * out ){
+    char str[1024];
+    memset(str, 0, sizeof(str));
+    fread(str, sizeof(char), sizeof(str), in);
+    fprintf(out, "%s", str);
     return 0;
-*/
+}
