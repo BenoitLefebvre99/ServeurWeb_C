@@ -6,6 +6,12 @@ void send_response(FILE * client, int code, const char * reason_phrase, const ch
     fprintf(client, "\r\n");
     fputs(message_body, client);
 }
+void send_response_file(FILE * client, int code, const char * reason_phrase, FILE * fichier){
+    send_status(client, code, reason_phrase);
+    fprintf(client, "Content-Length: %d\n", get_file_size(fileno(fichier)));
+    fprintf(client, "\r\n");
+    copy(fichier, client);
+}
 
 void send_status(FILE * client, int code, const char *reason_phrase){
     fprintf(client, "HTTP/1.1 %d %s \n", code, reason_phrase);
@@ -17,7 +23,7 @@ char * welcomeMessage(){
         "Bien le bonjour,\r\n"
         "Nous te souhaitons la bienvenue.\r\n"
         "Nous espérons que tu vas kiffer.\r\n"
-        "Y'a pleins de fonctionnalités.\r\n"
+        "Y'a plein de fonctionnalités.\r\n"
         "Mais la flemme de te faire la liste.\r\n"
         "William et Benoit.\r\n"
         "La bise.\r\n"
