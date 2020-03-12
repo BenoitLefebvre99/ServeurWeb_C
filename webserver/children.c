@@ -19,20 +19,31 @@ int launchChild(int socket_client){
     //skip_headers(recept);
 
     fgets_or_exit(reception, 1024, recept);
-    printf("%s\n", reception);
+
+    printf("\n");
+    printf("\n");
+
+    printf(">> %s\n", reception);
 
     http_request requete;
 
     if(parse_http_request(reception, &requete) == 0) {
         send_response(recept, 400, "Bad Request", badRequestMessage());
+        printf("Erreur 400 : Mauvaise requète\n");
     }
     else if(requete.method == HTTP_UNSUPPORTED) {
         send_response(recept, 405, "Method Not Allowed", "Method Not Allowed\r\n");
+        printf("Erreur 405 : Version HTTP non supportée.\n");
+    }
+    else if(strstr(requete.target, "../") != NULL){
+        send_response(recept, 403, "Access Forbidden", "L'accès à l'adresse demandée est refusé.\r\n");
+        printf("Erreur 403 : Accès à la ressource refusé.\n");
     }
     else {
         FILE * end = check_and_open(rewrite_target(requete.target), "../www");
         if(end == NULL) {
             send_response(recept, 404, "Not Found", error404Message());
+            printf("Erreur 404 : Ressource introuvable\n");
         } else {
             char content[1024];
             memset(content, 0, sizeof(content));
