@@ -3,12 +3,18 @@
 char * rewrite_target(char * target) {
     int idx = charAt(target, '?');
     char * save = target;
+    if() {
+
+    }
     if(idx == -1) {
         return target;
     }
     save = save + idx;
     *save = '\0';
     return target ;
+}
+int is_root(char * target) {
+    return strcmp(target, "/");
 }
 int charAt(char * str, char c) {
     int res = 0;
