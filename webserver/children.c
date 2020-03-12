@@ -34,12 +34,9 @@ int launchChild(int socket_client){
         if(end == NULL) {
             send_response(recept, 404, "Not Found", error404Message());
         } else {
-            //printf("Taille = %d\n", get_file_size(fileno(end)));
             char content[1024];
-            memset(content, sizeof(char), sizeof(content));
-            while(1) {
-               fgets_or_exit(content, sizeof(content), end);
-            }
+            memset(content, 0, sizeof(content));
+            get_file_content(content, sizeof(content), end);
             send_response(recept, 200, "OK", content);
         }
     }

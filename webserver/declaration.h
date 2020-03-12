@@ -38,4 +38,4 @@ FILE * check_and_open(const char * target, const char * document_root);
 int get_file_size(int fd);
 int copy(FILE * in, FILE * out);
 int charAt(char * str, char c);
-void send_response_file(FILE * client, int code, const char * reason_phrase, FILE * fichier);
+char * get_file_content(char * buffer, int size, FILE * stream);

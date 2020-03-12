@@ -19,6 +19,22 @@ char * fgets_or_exit(char * buffer, int size, FILE * stream){
     exit(1);
 }
 
+// Récupère le contenu du fichier
+char * get_file_content(char * buffer, int size, FILE * stream) {
+    char * save = buffer;
+    int idx = 0;
+    char c;
+    do {
+        c = fgetc(stream);
+        if ( c!=EOF ) {
+            *buffer = c;
+            ++buffer;
+        }
+        ++idx;
+    }while(idx < size && c != EOF);
+    return save;
+}
+
 // Affichage du signal reçu
 void traitement_signal(int sig){
     pid_t pid;
