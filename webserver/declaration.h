@@ -39,3 +39,5 @@ int get_file_size(int fd);
 int copy(FILE * in, FILE * out);
 int charAt(char * str, char c);
 char * get_file_content(char * buffer, int size, FILE * stream);
+int is_root(char * target);
+char * adapt_target(char * buffer);

@@ -37,6 +37,7 @@ int launchChild(int socket_client){
             char content[1024];
             memset(content, 0, sizeof(content));
             get_file_content(content, sizeof(content), end);
+            printf("Envoie de la page www%s\n", requete.target);
             send_response(recept, 200, "OK", content);
         }
     }

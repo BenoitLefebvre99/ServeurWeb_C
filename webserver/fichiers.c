@@ -3,18 +3,31 @@
 char * rewrite_target(char * target) {
     int idx = charAt(target, '?');
     char * save = target;
-    if() {
-
-    }
-    if(idx == -1) {
+    if(!is_root(target)) {
+        target = adapt_target(target);
         return target;
+    } else {
+        if(idx == -1) {
+            return target;
+        }
+        save = save + idx;
+        *save = '\0';
+        return target ;
     }
-    save = save + idx;
-    *save = '\0';
-    return target ;
 }
 int is_root(char * target) {
     return strcmp(target, "/");
+}
+char * adapt_target(char * buffer) {
+    char * result = buffer;
+    char * index = "/index.html";
+    do {
+        *buffer = *index;
+        ++buffer;
+        ++index;
+    }while(*index != '\0');
+    *buffer = '\0';
+    return result;
 }
 int charAt(char * str, char c) {
     int res = 0;
