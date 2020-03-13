@@ -15,9 +15,7 @@ void send_status(FILE * client, int code, const char *reason_phrase){
 
 // Fonction qui renvoie le content type
 char * content_type(char * target) {
-    printf(">>>%s", target);
     target = get_ext(target);
-    printf(">>>%s", target);
     if(!strcmp(".svg", target)) {return "image/svg+xml";}
     if(!strcmp(".pdf", target)) {return "application/pdf";}
     if(!strcmp(".png", target)) {return "image/png";}
@@ -33,19 +31,10 @@ char * content_type(char * target) {
 // Fonction qui renvoie l'extension
 char * get_ext( char * target ) {
     int pointPos = charAt(target, '.');
-    //int tmp;
     if(pointPos == -1) {
         exit(1);
     }
     target = target + pointPos;
-    /*do {
-        tmp = charAt(target, '.');
-        if(tmp != -1){
-            pointPos = tmp;
-            target = target + pointPos;
-        }
-    }while(tmp != -1);*/
-    printf(">>>>%s", target);
     return target;
 }
 
