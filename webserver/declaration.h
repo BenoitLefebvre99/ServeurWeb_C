@@ -44,3 +44,5 @@ char * get_file_content(char * buffer, int size, FILE * stream);
 int is_root(char * target);
 char * adapt_target(char * buffer);
 void afficher_erreur(int erreur);
+char * content_type(char * target);
+char * get_ext( char * target );

@@ -57,6 +57,8 @@ int launchChild(int socket_client){
             }
             send_status(recept, 200, "OK");
             fprintf(recept, "Content-Length: %lu\n", st.st_size);
+            printf("Content-Type: %s\n", content_type(rewrite_target(requete.target)));
+            fprintf(recept, "Content-Type: %s\n", content_type(rewrite_target(requete.target)));
             fprintf(recept, "\r\n");
             copy(end, recept);
         }

@@ -13,6 +13,42 @@ void send_status(FILE * client, int code, const char *reason_phrase){
     fprintf(client, "HTTP/1.1 %d %s \n", code, reason_phrase);
 }
 
+// Fonction qui renvoie le content type
+char * content_type(char * target) {
+    printf(">>>%s", target);
+    target = get_ext(target);
+    printf(">>>%s", target);
+    if(!strcmp(".svg", target)) {return "image/svg+xml";}
+    if(!strcmp(".pdf", target)) {return "application/pdf";}
+    if(!strcmp(".png", target)) {return "image/png";}
+    if(!strcmp(".js", target)) {return "application/javascript";}
+    if(!strcmp(".jpg", target) || !strcmp(".jpeg", target)) {return "image/jpeg";}
+    if(!strcmp(".ico", target)) {return "image/x-icon";}
+    if(!strcmp(".html", target) || !strcmp(".htm", target)) {return "text/html";}
+    if(!strcmp(".gif", target)) {return "image/gif";}
+    if(!strcmp(".css", target)) {return "text/css";}
+    return "";
+}
+
+// Fonction qui renvoie l'extension
+char * get_ext( char * target ) {
+    int pointPos = charAt(target, '.');
+    //int tmp;
+    if(pointPos == -1) {
+        exit(1);
+    }
+    target = target + pointPos;
+    /*do {
+        tmp = charAt(target, '.');
+        if(tmp != -1){
+            pointPos = tmp;
+            target = target + pointPos;
+        }
+    }while(tmp != -1);*/
+    printf(">>>>%s", target);
+    return target;
+}
+
 // Fonction qui renvoie le message de bienvenue
 char * welcomeMessage(){
     char *message = "*****************\r\n"
