@@ -45,11 +45,20 @@ int launchChild(int socket_client){
             send_response(recept, 404, "Not Found", error404Message());
             printf("Erreur 404 : Ressource introuvable\n");
         } else {
-            char content[1024];
+            /*char content[1024];
             memset(content, 0, sizeof(content));
             get_file_content(content, sizeof(content), end);
             printf("Envoie de la page www%s\n", requete.target);
-            send_response(recept, 200, "OK", content);
+            send_response(recept, 200, "OK", content);*/
+            struct stat st;
+            if(fstat(fileno(end), &st) == -1) {
+                afficher_erreur(-9);
+                exit(1);
+            }
+            send_status(recept, 200, "OK");
+            fprintf(recept, "Content-Length: %lu\n", st.st_size);
+            fprintf(recept, "\r\n");
+            copy(end, recept);
         }
     }
     fflush(recept);
