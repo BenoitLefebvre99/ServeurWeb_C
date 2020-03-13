@@ -43,11 +43,10 @@ void traitement_signal(int sig){
     while((pid = waitpid(-1, &status, WNOHANG)) > 0){
         printf("Child %d killed by sig %d \n", pid, sig);
     }
-
 }
 
 // Méthode de nettoyage des siganux zombies
-void nettoyage_signaux(){
+int nettoyage_signaux(){
 
     struct sigaction sa;
 
@@ -56,14 +55,18 @@ void nettoyage_signaux(){
     sa.sa_flags = SA_RESTART;
     if (sigaction(SIGCHLD, &sa, NULL) == -1){
         perror("Erreur de traitement des processus zombies");
-        exit(1);
+        return -8;
     }
+    return 0;
 }
 
 // Fonction qui initialise les signaux
-void initialiser_signaux(){
+int initialiser_signaux(){
     if(signal(SIGPIPE, SIG_IGN) == SIG_ERR){
         perror("TU AS ERREUR SIGNAL");
+        return -7;
     }
     nettoyage_signaux();
+
+    return 0;
 }
