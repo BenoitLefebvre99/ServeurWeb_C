@@ -4,6 +4,7 @@ int socket_serveur;
 
 int main(void){
     socket_serveur = creationSocket();
+    initialiser_signaux();
 
     while(1){
         launchListenning(socket_serveur);

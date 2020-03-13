@@ -53,6 +53,7 @@ int launchChild(int socket_client){
         }
     }
     fflush(recept);
-
+    fclose(recept);
+    exit(0);
     return 0;
 }

@@ -54,9 +54,9 @@ void nettoyage_signaux(){
     sa.sa_handler = traitement_signal;
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
-    printf("go");
     if (sigaction(SIGCHLD, &sa, NULL) == -1){
         perror("Erreur de traitement des processus zombies");
+        exit(1);
     }
 }
 
@@ -65,6 +65,5 @@ void initialiser_signaux(){
     if(signal(SIGPIPE, SIG_IGN) == SIG_ERR){
         perror("TU AS ERREUR SIGNAL");
     }
-    printf("yo");
     nettoyage_signaux();
 }
