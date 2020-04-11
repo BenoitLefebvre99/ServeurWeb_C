@@ -1,5 +1,11 @@
-# M4101c
-LEFEVBRE Benoit 
-JACQUOT William
+# Serveur Web
 
-Nous sommes à la fin du chap 7. Il ne reste plus que le traitement des images.
+Langage de programmation utilisé : C.
+Membres de l'équipe :
+* LEFEVBRE Benoit 
+* JACQUOT William
+
+## Compilation et éxécution du projet
+
+* Exécutez `make` à la racine du projet.
+* Puis éxécutez `./webserver/pawnee`.

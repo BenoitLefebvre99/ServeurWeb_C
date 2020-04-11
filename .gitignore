@@ -1,2 +1,5 @@
 webserver/*.o
 webserver/pawnee
+.idea
+responses.txt
+m4101c.iml
